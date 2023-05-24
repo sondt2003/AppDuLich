@@ -3,10 +3,13 @@ import HomeScreen from "../screens/HomeScreen";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { View } from "react-native";
 import FindScreen from "../screens/FindScreen";
-import AccountScreen from "../screens/AccountScreen";
+import CompassScreen from "../screens/CompassScreen";
 import EventScreen from "../screens/EventScreen";
 import CreatAcount from "../screens/CreatAcount";
 const Tab = createBottomTabNavigator();
+
+
+
 
 const Tabs = () => {
     return (
@@ -67,11 +70,11 @@ const Tabs = () => {
                 }}
             />
 
-            <Tab.Screen name="Account" component={AccountScreen}
+            <Tab.Screen name="Account" component={CompassScreen}
                 options={{
                      tabBarIcon: ({ color, focused }) => (
                         <View style={{ justifyContent: 'center', alignItems: 'center', top: "25%", shadowColor: focused ? "#6A62B7" : '', shadowRadius: focused ? 6 : 0, shadowOpacity: focused ? 0.6 : 0 }}>
-                            <Ionicons name="person" color={color} size={30} />
+                            <Ionicons name="compass" color={color} size={30} />
                         </View>
                     ),
                 }}

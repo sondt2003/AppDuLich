@@ -5,10 +5,14 @@ import data from "../data/index";
 import PlaceItem from "../component/PlaceItem";
 export default function HomeScreen(props) {
 
-
+    console.log(props.navigation);
 
     const [selectedMenuItem, setSelectedMenuItem] = useState('Địa điểm nổi tiếng');
 
+    const goDetail = (event,item) => {
+        event.persist();
+        props.navigation.navigate('Details',{item:item});
+    }
 
     const handleMenuItemPress = (menuItem) => {
         setSelectedMenuItem(menuItem);
@@ -61,14 +65,14 @@ export default function HomeScreen(props) {
                 <View style={styles.wrapper}>
                     {data.slice(0, Math.ceil(data.length / 2)).map((item) => (
                         <View key={item.id} style={styles.item}>
-                            <PlaceItem place={item} />
+                            <PlaceItem onPress={(event) => goDetail(event,item)} place={item}  />
                         </View>
                     ))}
                 </View>
                 <View style={styles.wrapper}>
                     {data.slice(Math.ceil(data.length / 2)).map((item) => (
                         <View key={item.id} style={styles.item}>
-                            <PlaceItem place={item} />
+                            <PlaceItem  onPress={(event) => goDetail(event,item)} place={item} />
                         </View>
                     ))}
                 </View>
