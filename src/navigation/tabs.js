@@ -69,7 +69,7 @@ const Tabs = () => {
                 }}
             />
 
-            <Tab.Screen name="Account" component={CompassScreen}
+            <Tab.Screen name="Compass" component={CompassScreen}
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <View style={{ justifyContent: 'center', alignItems: 'center', top: "25%", shadowColor: focused ? "#6A62B7" : '', shadowRadius: focused ? 6 : 0, shadowOpacity: focused ? 0.6 : 0 }}>

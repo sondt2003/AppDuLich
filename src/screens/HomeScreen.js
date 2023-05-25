@@ -48,7 +48,10 @@ export default function HomeScreen(props) {
                     <Text style={[selectedMenuItem === 'Europe' && styles.selectedMenuItem,]}>Europe</Text>
                 </TouchableOpacity>
             </View>
+            <TouchableOpacity style={styles.logoContainer} onPress={() => props.navigation.navigate('Account')} activeOpacity={0.5}>
             <Image source={require('../img/travenus2.png')} style={styles.logo} />
+
+            </TouchableOpacity>
 
             <View style={{ top: 150 }}>
                 <Slider />
@@ -90,10 +93,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#F8D4D0'
     },
-    logo: {
+    logoContainer:{
         position: 'absolute',
         top: 40,
         left: 354,
+    },
+    logo: {
+        
         width: 53,
         height: 49,
         borderRadius: 50,
