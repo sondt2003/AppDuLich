@@ -5,6 +5,7 @@ import { View } from "react-native";
 import FindScreen from "../screens/FindScreen";
 import AccountScreen from "../screens/AccountScreen";
 import EventScreen from "../screens/EventScreen";
+import CreatAcount from "../screens/CreatAcount";
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -68,7 +69,7 @@ const Tabs = () => {
 
             <Tab.Screen name="Account" component={AccountScreen}
                 options={{
-                    tabBarIcon: ({ color, focused }) => (
+                     tabBarIcon: ({ color, focused }) => (
                         <View style={{ justifyContent: 'center', alignItems: 'center', top: "25%", shadowColor: focused ? "#6A62B7" : '', shadowRadius: focused ? 6 : 0, shadowOpacity: focused ? 0.6 : 0 }}>
                             <Ionicons name="person" color={color} size={30} />
                         </View>
@@ -77,7 +78,13 @@ const Tabs = () => {
             />
 
 
+
         </Tab.Navigator>
+
+
+
+
+
     );
 
 }
