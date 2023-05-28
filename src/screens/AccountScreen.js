@@ -60,9 +60,12 @@ export default function AccountScreen(props) {
                 </Text>
             </View>
             <View style={{ marginTop: 12, marginLeft: 28 }}>
-                <Text style={{ color: 'black', fontSize: 18, fontWeight: '500' }}>
-                    Thông tin tài khoản
-                </Text>
+                <TouchableOpacity onPress={() => props.navigation.navigate("AccountDetail")}>
+
+                    <Text style={{ color: 'black', fontSize: 18, fontWeight: '500' }}>
+                        Thông tin tài khoản
+                    </Text>
+                </TouchableOpacity>
             </View>
             <View style={{ marginTop: 12, marginLeft: 28 }}>
                 <Text style={{ color: 'black', fontSize: 18, fontWeight: '500' }}>
@@ -95,7 +98,7 @@ export default function AccountScreen(props) {
                     Theo dõi chúng tôi
                 </Text>
             </View>
-            <View style={{ marginLeft: 28, marginTop: 20,flexDirection:'row',columnGap:28}}>
+            <View style={{ marginLeft: 28, marginTop: 20, flexDirection: 'row', columnGap: 28 }}>
                 <TouchableOpacity>
 
                     <Ionicons name="logo-facebook" size={30} style={{ borderRadius: 50 }} />
