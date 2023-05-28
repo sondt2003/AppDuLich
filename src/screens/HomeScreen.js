@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, TouchableOpacity, Text, FlatList, ScrollView } from "react-native"
+import { View, StyleSheet, Image, TouchableOpacity, Text, FlatList, ScrollView, SafeAreaView } from "react-native"
 import { useRef, useState } from "react";
 import Slider from "../component/Slider"
 import data from "../data/index";
@@ -9,9 +9,9 @@ export default function HomeScreen(props) {
 
     const [selectedMenuItem, setSelectedMenuItem] = useState('Địa điểm nổi tiếng');
 
-    const goDetail = (event,item) => {
+    const goDetail = (event, item) => {
         event.persist();
-        props.navigation.navigate('Details',{item:item});
+        props.navigation.navigate('Details', { item: item });
     }
 
     const handleMenuItemPress = (menuItem) => {
@@ -19,9 +19,15 @@ export default function HomeScreen(props) {
     };
 
     return (
-        <View style={styles.container}>
-            <Image source={require('../img/fi_menu.png')} style={styles.icon} />
-            <Text style={styles.title}>Travenus</Text>
+        <SafeAreaView style={styles.container}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-evenly", marginVertical: 20 }}>
+                <Text style={styles.title}>Travenus</Text>
+
+                <TouchableOpacity style={{ position: 'absolute', right: 20 }} onPress={() => props.navigation.navigate('Account')} activeOpacity={0.5}>
+                    <Image source={require('../img/travenus2.png')} style={styles.logo} />
+
+                </TouchableOpacity>
+            </View>
             <View style={styles.menuContainer}>
                 <TouchableOpacity
                     style={styles.menuItem}
@@ -48,40 +54,39 @@ export default function HomeScreen(props) {
                     <Text style={[selectedMenuItem === 'Europe' && styles.selectedMenuItem,]}>Europe</Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.logoContainer} onPress={() => props.navigation.navigate('Account')} activeOpacity={0.5}>
-            <Image source={require('../img/travenus2.png')} style={styles.logo} />
+            <View style={{marginVertical:10}}>
 
-            </TouchableOpacity>
-
-            <View style={{ top: 150 }}>
                 <Slider />
             </View>
 
-            <View style={{ position: 'absolute', top: 470, left: 36 }}>
-                <Text style={{ color: "#000000", fontWeight: "700", fontSize: 18 }}>Recommended</Text>
-            </View>
-            <TouchableOpacity style={{ position: 'absolute', top: 473, right: 25 }}>
-                <Text style={{ color: "#000000" }}>View All</Text>
-            </TouchableOpacity>
 
-            <ScrollView style={{ position: 'absolute', top: 500, paddingBottom: 800 }} contentContainerStyle={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',marginVertical:8 }}>
+
+                <Text style={{ color: "#000000", fontWeight: "700", fontSize: 18, marginHorizontal: 16 }}>Recommended</Text>
+
+                <TouchableOpacity style={{ marginHorizontal: 16 }}>
+                    <Text style={{ color: "#000000" }}>View All</Text>
+                </TouchableOpacity>
+            </View>
+
+            <ScrollView style={{marginBottom:40}} contentContainerStyle={{ flexDirection: "row" }}>
                 <View style={styles.wrapper}>
                     {data.slice(0, Math.ceil(data.length / 2)).map((item) => (
                         <View key={item.id} style={styles.item}>
-                            <PlaceItem onPress={(event) => goDetail(event,item)} place={item}  />
+                            <PlaceItem onPress={(event) => goDetail(event, item)} place={item} />
                         </View>
                     ))}
                 </View>
                 <View style={styles.wrapper}>
                     {data.slice(Math.ceil(data.length / 2)).map((item) => (
                         <View key={item.id} style={styles.item}>
-                            <PlaceItem  onPress={(event) => goDetail(event,item)} place={item} />
+                            <PlaceItem onPress={(event) => goDetail(event, item)} place={item} />
                         </View>
                     ))}
                 </View>
             </ScrollView>
 
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -89,28 +94,22 @@ export default function HomeScreen(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+
         backgroundColor: '#F8D4D0'
     },
-    logoContainer:{
-        position: 'absolute',
-        top: 40,
-        left: 354,
-    },
+
     logo: {
-        
+
         width: 53,
         height: 49,
         borderRadius: 50,
+
     },
     icon: {
-        position: 'absolute',
-        top: 40,
-        left: 20
     },
 
     wrapper: {
+        
         padding: 12,
     },
 
@@ -118,13 +117,10 @@ const styles = StyleSheet.create({
         marginBottom: 10,
 
     },
-
     menuContainer: {
-        left: 20,
-        top: 100,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        position: 'absolute',
+        marginHorizontal:18
     },
 
     menuItem: {
@@ -138,11 +134,8 @@ const styles = StyleSheet.create({
 
     title: {
         color: '#FFF',
-
+        textAlign: 'center',
         fontSize: 27,
-        position: 'absolute',
-        top: 40,
-        left: 141
     },
 
     detail: {

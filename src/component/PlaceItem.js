@@ -16,7 +16,7 @@ export default function PlaceItem(props) {
 
         <View style={styles.container}>
             <TouchableOpacity onPress={onPress}>
-                <View>
+                <View style={{marginHorizontal:4,marginVertical:8}}>
                     <Image style={styles.img} source={place.img} />
 
                     <View style={styles.footerContainer}>
@@ -80,6 +80,8 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
+        alignItems:'center',
+        justifyContent:'center'
     },
     img: {
         borderRadius: 10,
