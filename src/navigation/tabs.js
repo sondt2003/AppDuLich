@@ -5,7 +5,6 @@ import { View } from "react-native";
 import FindScreen from "../screens/FindScreen";
 import CompassScreen from "../screens/CompassScreen";
 import EventScreen from "../screens/EventScreen";
-import CreatAcount from "../screens/CreatAcount";
 const Tab = createBottomTabNavigator();
 
 
