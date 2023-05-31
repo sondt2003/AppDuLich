@@ -27,13 +27,12 @@ export default function Pagingnation({ data, scrollX ,index}) {
 
 const styles = StyleSheet.create({
     container: {
-        position:'absolute',
+       
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        top:280
-
+        marginVertical:20
     },
 
     dot: {
