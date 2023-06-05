@@ -3,14 +3,15 @@ import Slides from '../data';
 import SlideItem from "./SlideItem";
 import Pagination from "./Pagination";
 import { useRef, useState, useEffect } from "react";
+import { API_PLACE } from "../../env";
 
 const deviceWidth = Dimensions.get("window").width;
 
-export default function Slider() {
+export default function Slider(props) {
   const [index, setIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const flatListRef = useRef(null); // Thêm useRef
-
+  const {data} = props;
   const dataLength = Slides.length; // Thêm dataLength
   const scrollInterval = useRef(null); // Thêm useRef
 
@@ -66,7 +67,7 @@ export default function Slider() {
   return (
     <View>
       <FlatList
-        data={Slides}
+        data={data}
         horizontal
         pagingEnabled
         snapToAlignment="center"
@@ -75,7 +76,7 @@ export default function Slider() {
         renderItem={({ item }) => <SlideItem item={item} />}
         ref={flatListRef} // Thêm ref
       />
-      <Pagination data={Slides} scrollX={scrollX} index={index} />
+      <Pagination data={data} scrollX={scrollX} index={index} />
     </View>
   );
 }

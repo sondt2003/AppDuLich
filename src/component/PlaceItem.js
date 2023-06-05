@@ -2,22 +2,22 @@ import { useState } from "react";
 import { View, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { API_PHOTOS } from "../../env";
 
 export default function PlaceItem(props) {
-    console.log(props);
     const { place,onPress } = props;
     const [heart, setHeart] = useState(false);
 
     const handleHeartPress = () => {
         setHeart(!heart);
     };
-    const [starRating, setStarRating] = useState(3);
+    const [starRating, setStarRating] = useState(place.vote.length);
     return (
 
         <View style={styles.container}>
             <TouchableOpacity onPress={onPress}>
                 <View style={{marginHorizontal:4,marginVertical:8}}>
-                    <Image style={styles.img} source={place.img} />
+                    <Image style={styles.img} source={{uri:`${API_PHOTOS}${place.image}`}} />
 
                     <View style={styles.footerContainer}>
                         <Text style={styles.title}>{place.name}</Text>

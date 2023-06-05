@@ -1,12 +1,14 @@
 import { Image, Text, View, StyleSheet, Dimensions } from "react-native";
+import { API_PHOTOS } from "../../env";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 export default function SlideItem({ item }) {
+
     return (
         <View style={styles.container}>
-            <Image source={item.img} style={styles.image} />
+            <Image source={{uri:`${API_PHOTOS}/${item.image}`}} style={styles.image} />
         </View>
     )
 }
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
         width: width,
         height: 255,
         alignItems: 'center',
-        
+
 
     },
     image: {
