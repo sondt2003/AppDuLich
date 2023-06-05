@@ -1,6 +1,7 @@
 
 import { View, SafeAreaView, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { API_PHOTOS } from '../../env';
 const DetailsScreen = (props) => {
 
     const { item } = props.route.params;
@@ -10,7 +11,7 @@ const DetailsScreen = (props) => {
 
 
             <View style={styles.backGroundImage}>
-                <Image style={styles.img} source={item.img} />
+                <Image style={styles.img} source={{uri:`${API_PHOTOS}${item.image}`}} />
             </View>
             <TouchableOpacity onPress={() => props.navigation.goBack()}>
                 <Ionicons style={styles.icon} size={26} name='arrow-back'/>
@@ -21,7 +22,7 @@ const DetailsScreen = (props) => {
                 </View>
                 <View style={styles.locationGroup}>
                     <Ionicons name='location-outline' size={24} />
-                    <Text style={styles.location}>{item.location}</Text>
+                    <Text style={styles.location}>{item.address}</Text>
                 </View>
                 <View style={styles.descGroup}>
                     <View>
@@ -30,7 +31,7 @@ const DetailsScreen = (props) => {
                         </Text>
                     </View>
                     <View>
-                        <Text style={styles.desc}>{item.desc}</Text>
+                        <Text style={styles.desc}>{item.description}</Text>
                     </View>
                 </View>
             </View>
