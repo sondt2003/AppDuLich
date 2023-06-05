@@ -1,11 +1,14 @@
 import { View, StyleSheet, Image, TouchableOpacity, Text, FlatList, ScrollView, SafeAreaView } from "react-native"
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Slider from "../component/Slider"
-import data from "../data/index";
 import PlaceItem from "../component/PlaceItem";
+import { API_PLACE } from "../../env";
 export default function HomeScreen(props) {
 
-    console.log(props.navigation);
+    const [data,setData] = useState([]);
+    useEffect(() => {
+        fetch(API_PLACE).then(res => res.json()).then(data => setData(data));
+      },[])
 
     const [selectedMenuItem, setSelectedMenuItem] = useState('Địa điểm nổi tiếng');
 
@@ -56,7 +59,7 @@ export default function HomeScreen(props) {
             </View>
             <View style={{marginVertical:10}}>
 
-                <Slider />
+                <Slider data={data}/>
             </View>
 
 
