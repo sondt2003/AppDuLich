@@ -26,7 +26,11 @@ export default function LoginScreen(props) {
 
         fetch(API_LOGIN, requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result => {
+                if (result == 'success') {
+                    props.navigation.navigate('Root');
+                }
+            })
             .catch(error => console.log('error', error));
     }
     return (

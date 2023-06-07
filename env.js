@@ -1,4 +1,4 @@
-export const API_URL = 'http://192.168.1.31:3000/';
+export const API_URL = 'http://10.24.24.39:3000/';
 export const API_PLACE = `${API_URL}place/api`;
 export const API_CITY = `${API_URL}city/api`;
 export const API_COMMENT = `${API_URL}comment/api`;

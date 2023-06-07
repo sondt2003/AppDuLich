@@ -7,9 +7,9 @@ export default function AccountScreen(props) {
     const { user, setUser } = useState();
     useEffect(() => {
         // const email = await AsyncStorage.getItem('data'); 
-        console.log(email)
+
         var myHeaders = new Headers();
-        myHeaders.append("Cookie", "connect.sid=s%3AykJKWQ1sWrjqpyAEJsnJ4kAatSLdcEg5.uUh0SN8NT03UayjTYcC%2FmQsZUl5TaSptdIIfViptozo");
+        myHeaders.append("Cookie", "connect.sid=s%3Ad2mmIm_zdwqFWJPANWLgCSKTUKHXomSD.b%2FG0imeEj9%2F%2FuZ26B%2BIbWtkvRKY4Kd1BD3Yz%2FKORWIw");
 
         var requestOptions = {
             method: 'GET',
