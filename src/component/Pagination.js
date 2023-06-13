@@ -5,7 +5,7 @@ const { width } = Dimensions.get("window");
 export default function Pagingnation({ data, scrollX ,index}) {
     return (
         <View style={styles.container}>
-            {data?.map((_, idx) => {
+            {data.length > 0 && data.map((_, idx) => {
                 const inputRange = [(idx - 1) * width, idx * width, (idx + 1) * width];
 
                 const dotWidth = scrollX.interpolate({
