@@ -57,10 +57,10 @@ export default function HomeScreen(props) {
                     <Text style={[selectedMenuItem === 'Europe' && styles.selectedMenuItem,]}>Europe</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{marginVertical:10}}>
+            {/*<View style={{marginVertical:10}}>*/}
 
-                <Slider data={data}/>
-            </View>
+            {/*    <Slider data={data}/>*/}
+            {/*</View>*/}
 
 
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',marginVertical:8 }}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, SafeAreaView, StyleSheet, TextInput, Image, TouchableOpacity, Text, KeyboardAvoidingView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-export default function LoginScreen() {
+export default function LoginScreen(props) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ position: 'absolute', top: 64, left: 30, flexDirection: 'row', alignItems: 'center' }}>
@@ -40,7 +40,7 @@ export default function LoginScreen() {
                 </TouchableOpacity>
             </View>
             <View style={{ position: 'absolute', left: 30, width: "100%", top: 420 }}>
-                <TouchableOpacity activeOpacity={0.6}>
+                <TouchableOpacity activeOpacity={0.6}  onPress={() => props.navigation.navigate('Home')}>
                     <View style={{ backgroundColor: '#239BD8', width: "80%", flexDirection: 'row', height: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
                         <Text style={{ color: 'white', fontSize: 24, marginHorizontal: 20 }}>CONTINUE</Text>
                         <Ionicons name='arrow-forward' color={'white'} size={30} />

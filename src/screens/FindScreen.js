@@ -1,10 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, TextInput, TouchableOpacity,Image, FlatList,Text,StyleSheet, Dimensions } from 'react-native';
-import { Feather } from 'react-native-vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { SelectList } from 'react-native-dropdown-select-list'
-export default function FindScreen(props) {
-    const [searchText, setSearchText] = useState('');
+
+//vote
+// const [voteCount, setVoteCount] = useState(item.voteCount);
+// const handleVote = (rating) => {
+//     setVoteCount(rating);
+//     onPressVote(item.key, rating);
+// };
+export default function FindScreen() {
+
     const [selected, setSelected] = React.useState("");
 
     const data = [
@@ -15,58 +22,53 @@ export default function FindScreen(props) {
         // Thêm các mục dữ liệu khác ở đây
     ];
     const dulieu = [
-        {key:'1', value:'Gần Nhất'},
-        {key:'2', value:'Nổi Bật'},
-        {key:'3', value:'Đánh Giá Cao'},
+        {key:'1', name:'Gần Nhất'},
+        {key:'2', name:'Nổi Bật'},
+        {key:'3', name:'Đánh Giá Cao'},
 
     ];
-    const DaTa=[
-        {
-            id:0,
-            title:'Hồ hoàn kiếm',
-            img:'https://toplist.vn/images/800px/ho-hoan-kiem-945590.jpg',
-            des:'Hồ Hoàn Kiếm còn được gọi là Hồ Gươm có vị trí kết nối giữa khu phố cổ gồm các phố Hàng Ngang, Hàng Đào, Cầu Gỗ, Lương Văn Can, Lò Sũ... với khu phố Tây do người Pháp quy hoạch cách đây hơn một thế kỷ là Bảo Khánh, Nhà thờ, Tràng Thi, Hàng Bài, Đinh Tiên Hoàng, Tràng Tiền, Hàng Khay, Bà Triệu.'
-        },
-        {
-            id:1,
-            title:'Chùa thiên mụ',
-            img:'https://toplist.vn/images/800px/chua-thien-mu-15990.jpg',
-            des:'Khi nhắc tới Huế, người ta sẽ nghĩ ngay đến chùa Thiên Mụ bởi lẽ đây là một trong những điểm đến có phong cảnh đẹp nhất ở Huế. Non xanh nước biếc, phong cảnh hữu tình cùng cái vẻ yên tĩnh của thiên nhiên nơi đây sẽ khiến cho tâm hồn chúng ta trở nên thanh thản hơn. Ngôi chùa này được chính thức xây dựng vào đời chúa Tiên Nguyễn Hoàng năm 1601. Đến đời chúa Quốc (Nguyễn Phúc Chu), chùa Thiên Mụ được xây dựng lại với quy mô lớn hơn, đẹp hơn và khang trang hơn.'
-        },
-        {
-            id:2,
-            title:'Vịnh hạ long',
-            img:'https://toplist.vn/images/800px/vinh-ha-long-15987.jpg',
-            des:'Vịnh Hạ Long nằm thuộc bộ phận của vịnh Bắc Bộ, phía Đông Bắc giáp với vịnh Bái Tử Long, phía Tây Nam giáp với quần đảo Cát Bà, phía Tây và Tây Bắc giáp với đất liền, phía Đông Nam và phía Nam hướng ra vịnh Bắc Bộ. Cảnh quan non nước ngoạn mục trên Vịnh được kiến tạo bởi hơn 1600 hòn đảo đá vôi lớn nhỏ trên làn nước xanh ngọc lục bảo đặc trưng của Vịnh Hạ Long. Đây cũng là nơi chứng kiến những thay đổi trong lịch sử phát triển của Trái đất. Các cột đá vôi được bao phủ bởi các hàng cây nhiệt đới xanh thẳm, cùng hệ thống hang, động đá vôi kỳ vĩ.'
-        },
-        {
-            id:3,
-            title:'Phong nha kẻ bàng',
-            img:'https://toplist.vn/images/800px/phong-nha-ke-bang-532115.jpg',
-            des:'Động Phong Nha là danh thắng tiêu biểu nhất của hệ thống hang động thuộc quần thể danh thắng Phong Nha – Kẻ Bàng. Phong Nha được bình chọn là một trong những hang động đẹp nhất thế giới với các tiêu chí: Sông ngầm dài nhất, Hồ nước ngầm đẹp nhất. Cửa hang cao và rộng nhất, Các bãi cát, bãi đá ngầm đẹp nhất, hang khô rộng và đẹp nhất, Hệ thống thạch nhũ kỳ ảo và tráng lệ nhất, Hang động nước dài nhất. Động Phong Nha là một điểm đến được nhiều du khách lựa chọn trong chuyến du lịch Quảng Bình.'
+    //search
+    const [dataPlace,setDataPlace]=useState();
+    const [search, setSearch] = useState('');
+    const [filteredData, setFilteredData] = useState(dataPlace);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://192.168.0.103:3000/place/api'); // 192.168.0.103
+            const jsonDataPlace = await response.json();
+            setDataPlace(jsonDataPlace);
+            setFilteredData(jsonDataPlace);
+        } catch (error) {
+            console.error(error);
         }
-
-    ];
-    const handleSearch = () => {
-        const filteredItems = data.filter(item =>
-            item.name.toLowerCase().includes(searchText.toLowerCase())
-        );
-        setFilteredData(filteredItems);
     };
+    const handleSearch = (text) => {
+        setSearch(text);
+        const newData = dataPlace.filter((item) => {
+            const itemName = item.name.toLowerCase();
+            const searchText = text.toLowerCase();
+            return itemName.includes(searchText);
+        });
+        setFilteredData(newData);
+    };
+
+
     return (
         <View style={styles.container}>
             <Text style={{textAlign:'center',marginTop:40,fontSize:20,fontWeight:"bold"}}>Search</Text>
             <View style={styles.searchContainer}>
                 <TextInput
                     style={styles.searchInput}
-                    onChangeText={text => setSearchText(text)}
-                    value={searchText}
+                    onChangeText={handleSearch}
+                    value={search}
                     placeholder="Nhập từ khóa tìm kiếm"
                 />
-                <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-                    <Feather name="search" size={24} color="black" />
-                </TouchableOpacity>
             </View>
+
+
             <View>
                 <FlatList style={{backgroundColor:'white', borderRadius:5}} horizontal={true}
                           data={data}
@@ -109,19 +111,20 @@ export default function FindScreen(props) {
             <Text style={{fontSize:20,marginTop:4,marginLeft:20}}>Gợi ý </Text>
             <View style={styles.listContainer}>
 
-                <FlatList style={{borderTopWidth:3,borderTopColor:"black"}} data={DaTa}
+                <FlatList style={styles.flatlist}
+                          data={filteredData}
                           renderItem={({item})=>{return (
-                              <View style={{alignItems:'center',margin:10,padding:10,backgroundColor:"white",borderRadius:10}}>
+                              <View style={styles.item}>
+                                  <Image style={{height:350,width:350, borderRadius:10}} source={{uri:'http://192.168.0.103:3000/photos/'+item.image}}/>
+                                  <Text  style={{color: '#0f1010',padding:12,fontSize:27,fontWeight:"bold"}}>{item.name}</Text>
+                                  <View style={styles.itemplace}>
+                                      <Image style={styles.imgplace} source={{uri:'https://cdn-icons-png.flaticon.com/128/535/535239.png'}} />
+                                      <Text  style={{color:'#0f1010',width:280,fontSize:20,marginLeft:5}}>{item.address}</Text>
 
+                                  </View>
 
+                  </View>)}}/>
 
-                                  <Image  style={{height:300,width:300,}} source={{uri:item.img}}/>
-                                  <Text style={{textAlign:'left',fontWeight:"bold",fontSize:30}}>{item.title}</Text>
-                                  <Text style={{fontSize:20}}>{item.des}</Text>
-
-
-
-                              </View>)}}/>
 
 
 
@@ -184,7 +187,6 @@ const styles = StyleSheet.create({
         justifyContent:'space-between'
 
     },
-
     select:{
 
         width:120
@@ -195,5 +197,28 @@ const styles = StyleSheet.create({
         marginTop:10,
         flexDirection: 'row',
         marginBottom: 10,
+    },
+    flatlist: {
+        marginTop: 10,
+        height:475
+
+    },
+    item:{
+        width:350,
+
+
+        marginLeft:16,
+        marginTop:10,
+        borderRadius:10,
+
+    },
+    itemplace:{
+        flexDirection:"row",
+        paddingLeft:12,
+        marginTop:10
+    },
+    imgplace:{
+        width:20,
+        height:20
     },
 })
