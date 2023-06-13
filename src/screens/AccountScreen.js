@@ -1,6 +1,27 @@
+import { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { API_USER } from "../../env";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function AccountScreen(props) {
+    const { user, setUser } = useState();
+    useEffect(() => {
+        // const email = await AsyncStorage.getItem('data'); 
+
+        var myHeaders = new Headers();
+        myHeaders.append("Cookie", "connect.sid=s%3Ad2mmIm_zdwqFWJPANWLgCSKTUKHXomSD.b%2FG0imeEj9%2F%2FuZ26B%2BIbWtkvRKY4Kd1BD3Yz%2FKORWIw");
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch(API_USER, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+    }, []);
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
