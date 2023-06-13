@@ -1,7 +1,42 @@
-import React from 'react'
-import { View, SafeAreaView, StyleSheet, TextInput, Image, TouchableOpacity, Text, KeyboardAvoidingView } from 'react-native';
+import React, { useState } from 'react'
+import { View, SafeAreaView, StyleSheet, TextInput, Image, TouchableOpacity, Text, KeyboardAvoidingView, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+<<<<<<< HEAD
 export default function LoginScreen(props) {
+=======
+import { API_LOGIN } from '../../env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+export default function LoginScreen(props) {
+    const [email, setEmail] = useState();
+    const [password, setPass] = useState();
+    const data = { email, password };
+    const handleLogin = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Cookie", "connect.sid=s%3AykJKWQ1sWrjqpyAEJsnJ4kAatSLdcEg5.uUh0SN8NT03UayjTYcC%2FmQsZUl5TaSptdIIfViptozo");
+
+        var raw = JSON.stringify({
+            "email": email,
+            "password": password
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch(API_LOGIN, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                if (result == 'success') {
+                    props.navigation.navigate('Root');
+                }
+            })
+            .catch(error => console.log('error', error));
+    }
+>>>>>>> cef01551cad68426f83479016effcd9ec740394e
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ position: 'absolute', top: 64, left: 30, flexDirection: 'row', alignItems: 'center' }}>
@@ -15,8 +50,10 @@ export default function LoginScreen(props) {
             </View>
             <View style={{ position: 'absolute', top: 190, left: 30, width: '100%' }}>
                 <TextInput
-                    style={{ backgroundColor: 'white', width: "80%", height: 56, fontSize: 24, borderRadius: 10, padding: 16 }}
+                    style={{ backgroundColor: 'white', width: "80%", fontSize: 20, borderRadius: 10, padding: 16 }}
+                    value={email}
                     placeholder='Tài khoản'
+                    onChangeText={(text) => setEmail(text)}
                     placeholderTextColor={'gray'}
                 />
             </View>
@@ -25,8 +62,10 @@ export default function LoginScreen(props) {
             </View>
             <View style={{ position: 'absolute', top: 300, left: 30, width: '100%' }}>
                 <TextInput
-                    style={{ backgroundColor: 'white', width: "80%", fontSize: 24, height: 56, borderRadius: 10, padding: 16 }}
+                    style={{ backgroundColor: 'white', width: "80%", fontSize: 20, borderRadius: 10, padding: 16 }}
+                    value={password}
                     placeholder='Mật khẩu'
+                    onChangeText={(text) => setPass(text)}
                     placeholderTextColor={'gray'}
 
                 />
@@ -40,7 +79,11 @@ export default function LoginScreen(props) {
                 </TouchableOpacity>
             </View>
             <View style={{ position: 'absolute', left: 30, width: "100%", top: 420 }}>
+<<<<<<< HEAD
                 <TouchableOpacity activeOpacity={0.6}  onPress={() => props.navigation.navigate('Home')}>
+=======
+                <TouchableOpacity onPress={handleLogin} activeOpacity={0.6}>
+>>>>>>> cef01551cad68426f83479016effcd9ec740394e
                     <View style={{ backgroundColor: '#239BD8', width: "80%", flexDirection: 'row', height: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
                         <Text style={{ color: 'white', fontSize: 24, marginHorizontal: 20 }}>CONTINUE</Text>
                         <Ionicons name='arrow-forward' color={'white'} size={30} />

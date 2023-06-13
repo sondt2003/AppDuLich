@@ -20,8 +20,13 @@ export default function App() {
     <NavigationContainer>
       <StatusBar barStyle={"default"}/>
       <Stack.Navigator screenOptions={{headerShown:false}}>
+<<<<<<< HEAD
         {/* <Stack.Screen name='LoginScreen' component={LoginScreen} />*/}
         {/*<Stack.Screen name='SplashScreen' component={SplashScreen} />*/}
+=======
+        <Stack.Screen name='LoginScreen' component={LoginScreen} />
+        <Stack.Screen name='SplashScreen' component={SplashScreen} />
+>>>>>>> cef01551cad68426f83479016effcd9ec740394e
         <Stack.Screen name='Root' component={Tabs} />
           <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='Details' component={DetailScreen} />
