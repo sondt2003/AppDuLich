@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import {Image, StyleSheet, Text, TextInput, View,Button,Alert} from 'react-native';
+import {Image, StyleSheet, Text, TextInput, View, Button, Alert, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 
 
-export default function SupportScreen({navigation}) {
+export default function SupportScreen(props) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Travenus</Text>
@@ -27,12 +27,13 @@ export default function SupportScreen({navigation}) {
                 <Text style={{fontSize:20,marginLeft:15}}>Nền tảng nhắn tin an toàn và free</Text>
             </View>
             <View  style={styles.button}>
-                <Button
+                <Button onPress={() => props.navigation.navigate("MessSuport")}
 
                     color={'black'}
                     title="SOẠN TIN NHẮN"
 
                 />
+
             </View>
             <StatusBar style="light" />
         </View>
