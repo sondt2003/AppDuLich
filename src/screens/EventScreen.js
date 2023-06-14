@@ -1,48 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet, Image, TouchableOpacity, Text,FlatList } from "react-native"
 import React from "react";
+import {useEffect,useState} from "react";
 export default function EventScreen(props) {
-    const DaTa=[
-        {
-            id:0,
-            title:'Hồ hoàn kiếm',
-            img:'https://toplist.vn/images/800px/ho-hoan-kiem-945590.jpg',
-            des:'Hồ Hoàn Kiếm còn được gọi là Hồ Gươm có vị trí kết nối giữa khu phố cổ gồm các phố Hàng Ngang, Hàng Đào, Cầu Gỗ, Lương Văn Can, Lò Sũ... với khu phố Tây do người Pháp quy hoạch cách đây hơn một thế kỷ là Bảo Khánh, Nhà thờ, Tràng Thi, Hàng Bài, Đinh Tiên Hoàng, Tràng Tiền, Hàng Khay, Bà Triệu.'
-        },
-        {
-            id:1,
-            title:'Chùa thiên mụ',
-            img:'https://toplist.vn/images/800px/chua-thien-mu-15990.jpg',
-            des:'Khi nhắc tới Huế, người ta sẽ nghĩ ngay đến chùa Thiên Mụ bởi lẽ đây là một trong những điểm đến có phong cảnh đẹp nhất ở Huế. Non xanh nước biếc, phong cảnh hữu tình cùng cái vẻ yên tĩnh của thiên nhiên nơi đây sẽ khiến cho tâm hồn chúng ta trở nên thanh thản hơn. Ngôi chùa này được chính thức xây dựng vào đời chúa Tiên Nguyễn Hoàng năm 1601. Đến đời chúa Quốc (Nguyễn Phúc Chu), chùa Thiên Mụ được xây dựng lại với quy mô lớn hơn, đẹp hơn và khang trang hơn.'
-        },
-        {
-            id:2,
-            title:'Vịnh hạ long',
-            img:'https://toplist.vn/images/800px/vinh-ha-long-15987.jpg',
-            des:'Vịnh Hạ Long nằm thuộc bộ phận của vịnh Bắc Bộ, phía Đông Bắc giáp với vịnh Bái Tử Long, phía Tây Nam giáp với quần đảo Cát Bà, phía Tây và Tây Bắc giáp với đất liền, phía Đông Nam và phía Nam hướng ra vịnh Bắc Bộ. Cảnh quan non nước ngoạn mục trên Vịnh được kiến tạo bởi hơn 1600 hòn đảo đá vôi lớn nhỏ trên làn nước xanh ngọc lục bảo đặc trưng của Vịnh Hạ Long. Đây cũng là nơi chứng kiến những thay đổi trong lịch sử phát triển của Trái đất. Các cột đá vôi được bao phủ bởi các hàng cây nhiệt đới xanh thẳm, cùng hệ thống hang, động đá vôi kỳ vĩ.'
-        },
-        {
-            id:3,
-            title:'Phong nha kẻ bàng',
-            img:'https://toplist.vn/images/800px/phong-nha-ke-bang-532115.jpg',
-            des:'Động Phong Nha là danh thắng tiêu biểu nhất của hệ thống hang động thuộc quần thể danh thắng Phong Nha – Kẻ Bàng. Phong Nha được bình chọn là một trong những hang động đẹp nhất thế giới với các tiêu chí: Sông ngầm dài nhất, Hồ nước ngầm đẹp nhất. Cửa hang cao và rộng nhất, Các bãi cát, bãi đá ngầm đẹp nhất, hang khô rộng và đẹp nhất, Hệ thống thạch nhũ kỳ ảo và tráng lệ nhất, Hang động nước dài nhất. Động Phong Nha là một điểm đến được nhiều du khách lựa chọn trong chuyến du lịch Quảng Bình.'
-        }
+    const [dulieu,setDuLieu]=useState();
+    useEffect(()=>{
 
-    ];
+        fetch('http://192.168.0.103:3000/travel-event/api')
+            .then(response=>response.json())
+            .then(data=>{setDuLieu(data)})
+
+
+    },[])
     return (
 
             <View style={styles.container}>
                 <Text style={styles.title}>Event</Text>
                 <Image source={require('../img/travenus2.png')} style={styles.logo} />
-                <FlatList style={styles.flatlist} data={DaTa}
+                <FlatList style={styles.flatlist} data={dulieu}
                           renderItem={({item})=>{return (
                               <View style={styles.item}>
 
 
 
-                                  <Image  style={{height:300,width:380,borderRadius:10}} source={{uri:item.img}}/>
-                                  <Text  style={{color: '#1E9781',padding:12,fontSize:30}}>{item.title}</Text>
-                                  <Text style={{color:'#7C8DB0',fontSize:20,padding:12}}>{item.des}</Text>
+                                  <Image style={{height:350,width:380, borderRadius:10}} source={{uri:'http://192.168.0.103:3000/photos/'+item.place.image}}/>
+                                  <Text  style={{color: '#1E9781',padding:12,fontSize:30}}>{item.event}</Text>
+
+                                  <Text  style={styles.textdate}>Bắt Đầu: {item.dateStart.slice(0,-14)}</Text>
+                                  <Text  style={styles.textdate}>Kết Thúc: {item.dateEnd.slice(0,-14)}</Text>
+                                  <View style={styles.itemplace}>
+                                      <Image style={styles.imgplace} source={{uri:'https://cdn-icons-png.flaticon.com/128/535/535239.png'}} />
+                                      <Text style={{color:'#7C8DB0',fontSize:20,marginLeft:5}}>{item.place.name}</Text>
+
+                                  </View>
+                                  <Text style={{color:'#7C8DB0',fontSize:20,padding:12}}>{item.description}</Text>
 
 
 
@@ -94,4 +85,19 @@ const styles = StyleSheet.create({
         marginTop:50,
 
     },
+    textdate:{
+        color:'#7C8DB0',
+        fontSize:20,
+        paddingLeft:12,
+    },
+    imgplace:{
+        width:20,
+        height:20
+    },
+    itemplace:{
+        flexDirection:"row",
+        paddingLeft:12,
+        marginTop:10
+    }
+
 })

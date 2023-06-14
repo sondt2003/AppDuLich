@@ -66,9 +66,12 @@ export default function AccountScreen(props) {
             </View>
 
             <View style={{ marginLeft: 28, marginTop: 20 }}>
-                <Text style={{ color: 'black', fontSize: 24, fontWeight: '500' }}>
-                    Chức năng
-                </Text>
+                <TouchableOpacity onPress={() => props.navigation.navigate("CreatAcc")}>
+
+                    <Text style={{ color: 'black', fontSize: 18, fontWeight: '500' }}>
+                       Chức năng
+                    </Text>
+                </TouchableOpacity>
             </View>
             <View style={{ marginTop: 12, marginLeft: 28 }}>
                 <Text style={{ color: 'black', fontSize: 18, fontWeight: '500' }}>
@@ -89,9 +92,12 @@ export default function AccountScreen(props) {
                 </TouchableOpacity>
             </View>
             <View style={{ marginTop: 12, marginLeft: 28 }}>
-                <Text style={{ color: 'black', fontSize: 18, fontWeight: '500' }}>
-                    Trung tâm hỗ trợ
-                </Text>
+                <TouchableOpacity onPress={() => props.navigation.navigate("Suport")}>
+
+                    <Text style={{ color: 'black', fontSize: 18, fontWeight: '500' }}>
+                        Trung tâm hỗ trợ
+                    </Text>
+                </TouchableOpacity>
             </View>
 
             <View style={{ marginLeft: 28, marginTop: 20 }}>
