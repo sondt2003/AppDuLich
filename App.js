@@ -18,22 +18,17 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <StatusBar barStyle={"default"}/>
-      <Stack.Navigator screenOptions={{headerShown:false}}>
-<<<<<<< HEAD
-        {/* <Stack.Screen name='LoginScreen' component={LoginScreen} />*/}
-        {/*<Stack.Screen name='SplashScreen' component={SplashScreen} />*/}
-=======
+      <StatusBar barStyle={"default"} />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name='LoginScreen' component={LoginScreen} />
         <Stack.Screen name='SplashScreen' component={SplashScreen} />
->>>>>>> cef01551cad68426f83479016effcd9ec740394e
         <Stack.Screen name='Root' component={Tabs} />
-          <Stack.Screen name='Home' component={HomeScreen} />
+        <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='Details' component={DetailScreen} />
         <Stack.Screen name='Account' component={AccountScreen} />
-          <Stack.Screen name='Suport' component={SupportScreen} />
-          <Stack.Screen name='MessSuport' component={MessSupScreen} />
-          <Stack.Screen name='CreatAcc' component={CreatAccScreen} />
+        <Stack.Screen name='Suport' component={SupportScreen} />
+        <Stack.Screen name='MessSuport' component={MessSupScreen} />
+        <Stack.Screen name='CreatAcc' component={CreatAccScreen} />
         <Stack.Screen name='AccountDetail' component={AccountDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
