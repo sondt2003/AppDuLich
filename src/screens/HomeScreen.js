@@ -3,9 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import Slider from "../component/Slider"
 import PlaceItem from "../component/PlaceItem";
 import { API_PLACE } from "../../env";
+import data from "../data/index";
 export default function HomeScreen(props) {
 
     const [data,setData] = useState([]);
+    console.log("data",data);
     useEffect(() => {
         fetch(API_PLACE).then(res => res.json()).then(data => setData(data));
       },[])

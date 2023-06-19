@@ -11,7 +11,7 @@ const DetailsScreen = (props) => {
 
 
             <View style={styles.backGroundImage}>
-                <Image style={styles.img} source={{uri:`${API_PHOTOS}${item.image}`}} />
+            <Image style={styles.img} source={{uri:`${API_PHOTOS}${item.image}`}} />
             </View>
             <TouchableOpacity onPress={() => props.navigation.goBack()}>
                 <Ionicons style={styles.icon} size={26} name='arrow-back'/>

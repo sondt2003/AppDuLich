@@ -11,16 +11,16 @@ export default function PlaceItem(props) {
     const handleHeartPress = () => {
         setHeart(!heart);
     };
-    const [starRating, setStarRating] = useState(place.vote.length);
+    const [starRating, setStarRating] = useState(5);
     return (
 
         <View style={styles.container}>
             <TouchableOpacity onPress={onPress}>
                 <View style={{marginHorizontal:4,marginVertical:8}}>
-                    <Image style={styles.img} source={{uri:`${API_PHOTOS}${place.image}`}} />
+                    <Image style={styles.img} source={{uri:`${API_PHOTOS}/${place.image}`}} />
 
                     <View style={styles.footerContainer}>
-                        <Text style={styles.title}>{place.name}</Text>
+                        <Text style={styles.title}>{place.name && place.name.length > 20 ? place.name.substring(0, 18) + ' ...' : place.name}</Text>
                         <View style={{ position: 'absolute', right: 4, top: -14 }}>
                             <TouchableOpacity onPress={handleHeartPress}>
                                 <Ionicons name={'heart'} color={heart?'red':'white'} size={24} />

@@ -12,7 +12,7 @@ export default function Slider(props) {
   const scrollX = useRef(new Animated.Value(0)).current;
   const flatListRef = useRef(null); // Thêm useRef
   const { data } = props;
-  const dataLength = Slides.length; // Thêm dataLength
+  const dataLength = data.length; // Thêm dataLength
   const scrollInterval = useRef(null); // Thêm useRef
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Slider(props) {
       scrollInterval.current = setInterval(() => {
         // Tự động cuộn tới phần tử tiếp theo
         const newIndex = (index + 1) % dataLength;
-        flatListRef.current.scrollToIndex({ index: newIndex, animated: true });
+        // flatListRef.current.scrollToIndex({ index: newIndex, animated: true });
       }, 2000); // Khoảng thời gian tự động cuộn (2 giây)
 
       // Xử lý tự động cuộn khi scrollX thay đổi
@@ -50,7 +50,7 @@ export default function Slider(props) {
       clearInterval(scrollInterval.current);
       scrollInterval.current = setInterval(() => {
         const newIndex = (index + 1) % dataLength;
-        flatListRef.current.scrollToIndex({ index: newIndex, animated: true });
+        // flatListRef.current.scrollToIndex({ index: newIndex, animated: true });
       }, 2000); // Khoảng thời gian tự động cuộn (2 giây)
 
       Animated.event(

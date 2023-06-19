@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
-import { View, SafeAreaView, StyleSheet, TextInput, Image, TouchableOpacity, Text, KeyboardAvoidingView, Alert } from 'react-native';
+import { View, SafeAreaView, StyleSheet, TextInput, Image, TouchableOpacity, Text, KeyboardAvoidingView, Alert, ActivityIndicator } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 <<<<<<< HEAD
 export default function LoginScreen(props) {
 =======
 import { API_LOGIN } from '../../env';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function LoginScreen(props) {
     const [email, setEmail] = useState();
     const [password, setPass] = useState();
     const data = { email, password };
+    const [loading, setLoading] = useState(false);
     const handleLogin = () => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -26,19 +28,32 @@ export default function LoginScreen(props) {
             body: raw,
             redirect: 'follow'
         };
-
+        setLoading(true)
         fetch(API_LOGIN, requestOptions)
-            .then(response => response.text())
+            .then(response => response.json())
             .then(result => {
-                if (result == 'success') {
-                    props.navigation.navigate('Root');
+                setLoading(false);
+                if (result) {
+                    AsyncStorage.setItem('user', JSON.stringify(result)).then(
+                        props.navigation.navigate('Root')
+
+                    )
+                }else{
+                    Alert.alert('Vui lòng thử lại','Tài khoản của bạn không chính xác',[{text:'OK'}])
                 }
             })
-            .catch(error => console.log('error', error));
+            .catch(error => {
+                console.log('error', error);
+                setLoading(false);
+
+            });
     }
 >>>>>>> cef01551cad68426f83479016effcd9ec740394e
     return (
         <SafeAreaView style={styles.container}>
+            {loading &&
+                <ActivityIndicator size={'large'} />
+            }
             <View style={{ position: 'absolute', top: 64, left: 30, flexDirection: 'row', alignItems: 'center' }}>
                 <Image style={{ width: 50, height: 50, borderRadius: 50 }} source={require('../img/travenus2.png')} />
                 <Text style={{ color: 'white', fontSize: 48, marginLeft: 44 }}>

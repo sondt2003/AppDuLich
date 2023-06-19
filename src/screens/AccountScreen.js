@@ -6,22 +6,37 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function AccountScreen(props) {
     const { user, setUser } = useState();
     useEffect(() => {
-        // const email = await AsyncStorage.getItem('data'); 
 
-        var myHeaders = new Headers();
-        myHeaders.append("Cookie", "connect.sid=s%3Ad2mmIm_zdwqFWJPANWLgCSKTUKHXomSD.b%2FG0imeEj9%2F%2FuZ26B%2BIbWtkvRKY4Kd1BD3Yz%2FKORWIw");
+        getUser();
 
-        var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        fetch(API_USER, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
     }, []);
+
+    // const getDetail = async () => {
+    //     var myHeaders = new Headers();
+    //     const token = await getUser();
+
+    //     console.log(token);
+    //     myHeaders.append("Authorization", `Bearer ${token}`);
+    //     myHeaders.append("Cookie", "connect.sid=s%3AGPCdQhw6WwX9gMwfYQSphlMQS_w6yz0x.FfWdXl7Fx5RtTANrJeBNI1y%2BkO1%2BbFL51X%2FrViF8PME");
+
+    //     var requestOptions = {
+    //         method: 'GET',
+    //         headers: myHeaders,
+    //         redirect: 'follow'
+    //     };
+
+    //     fetch(API_USER, requestOptions)
+    //         .then(response => response.text())
+    //         // .then(result => console.log(result))
+    //         .catch(error => console.log('error', error));
+    // }
+
+    const getUser = async () => {
+        const user = await AsyncStorage.getItem('user');
+       console.log(JSON.parse(user).id)
+       
+        return JSON.parse(user);
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>

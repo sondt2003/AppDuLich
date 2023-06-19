@@ -1,15 +1,38 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment/moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, TextInput, KeyboardAvoidingView } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 export default function AccountDetailScreen(props) {
 
+    const [name, setName] = useState('');
+    const [city, setCity] = useState('');
+    const [phone, setPhoneNumber] = useState('');
+    const [email, setEmail] = useState('');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(new Date());
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };
+
+
+    useEffect(() => {
+
+        getUser();
+
+    }, []);
+
+    const getUser = async () => {
+        const user = await AsyncStorage.getItem('user');
+        setEmail(JSON.parse(user).email)
+        setName(JSON.parse(user).fullname)
+        setPhoneNumber(JSON.parse(user).phone)
+        setCity(JSON.parse(user).city)
+
+        console.log(JSON.parse(user).id)
+
+    }
 
     const hideDatePicker = () => {
         setDatePickerVisibility(false);
@@ -48,6 +71,7 @@ export default function AccountDetailScreen(props) {
                 </View>
                 <View style={{ marginHorizontal: 8, marginVertical: 6 }}>
                     <TextInput
+                        value={name}
                         placeholder="Họ tên"
                         style={{ backgroundColor: 'white', color: 'black', height: 48, padding: 12, fontSize: 24, borderRadius: 12 }}
                         placeholderTextColor="#aaaaaa"
@@ -63,12 +87,13 @@ export default function AccountDetailScreen(props) {
                             style={{ backgroundColor: 'white', color: 'black', height: 48, padding: 12, fontSize: 24, borderRadius: 12 }}
                             placeholderTextColor="#aaaaaa"
                         /> */}
-                        <Text style={{fontSize: 24}}>{moment(date).format('DD-MM-YYYY')}</Text>
+                        <Text style={{ fontSize: 24 }}>{moment(date).format('DD-MM-YYYY')}</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={{ marginHorizontal: 8, marginVertical: 6 }}>
                     <TextInput
+                        value={city}
                         placeholder="Thành phố bạn đang ở"
                         style={{ backgroundColor: 'white', color: 'black', height: 48, padding: 12, fontSize: 24, borderRadius: 12 }}
                         placeholderTextColor="#aaaaaa"
@@ -76,6 +101,7 @@ export default function AccountDetailScreen(props) {
                 </View>
                 <View style={{ marginHorizontal: 8, marginVertical: 6 }}>
                     <TextInput
+                        value={email}
                         placeholder="Email"
                         style={{ backgroundColor: 'white', color: 'black', height: 48, padding: 12, fontSize: 24, borderRadius: 12 }}
                         placeholderTextColor="#aaaaaa"
@@ -83,6 +109,7 @@ export default function AccountDetailScreen(props) {
                 </View>
                 <View style={{ marginHorizontal: 8, marginVertical: 6 }}>
                     <TextInput
+                        value={phone}
                         keyboardType="phone-pad"
                         placeholder="Số điện thoại"
                         style={{ backgroundColor: 'white', color: 'black', height: 48, padding: 12, fontSize: 24, borderRadius: 12 }}
